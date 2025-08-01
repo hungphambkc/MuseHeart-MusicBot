@@ -1,43 +1,43 @@
 # MuseHeart-MusicBot
-## bot de música programado em python com player interativo, comandos de barra + slash, integração com o [last.fm](https://www.last.fm/) e muito mais.
+## Music bot programmed in Python with an interactive player, slash and forward commands, integration with [last.fm](https://www.last.fm/), and much more.
 
-## Página com invites e algumas infos/screenshots da Muse Heart e funcionamento dessa source: [clique aqui](https://gist.github.com/zRitsu/4875008554a00c3c372b2df6dcdf437f#file-muse_heart_invites-md).
+## Page with invites and some information/screenshots about Muse Heart and how this source works: [click here](https://gist.github.com/zRitsu/4875008554a00c3c372b2df6dcdf437f#file-muse_heart_invites-md).
 
 [![](https://discordapp.com/api/guilds/911370624507707483/embed.png?style=banner2)](https://discord.gg/KM3NS7D6Zj)
 
-### Algumas Previews:
+### Some Previews:
 
-- Player controller: modo normal/mini-player (skin: default) e suporte a [RPC (Rich Presence)](https://github.com/zRitsu/MuseHeart-MusicBot-RPC-app)
+- Player controller: normal/mini-player mode (skin: default) and RPC (Rich Presence) support](https://github.com/zRitsu/MuseHeart-MusicBot-RPC-app)
 
 [![](https://i.ibb.co/6tVbfFH/image.png)](https://i.ibb.co/6tVbfFH/image.png)
 
 <details>
 <summary>
-Mais previews:
+More previews:
 </summary>
 <br>
 
-- Comandos de barra / Slash commands
+- Slash commands Commands
 
 [![](https://i.ibb.co/nmhYWrK/muse-heart-slashcommands.png)](https://i.ibb.co/nmhYWrK/muse-heart-slashcommands.png)
 
-- Integração com o [last.fm](https://www.last.fm/) para scrobbles (outras funcionalidades em breve).
+- Integration with [last.fm](https://www.last.fm/) for scrobbles (other features coming soon).
 
 [![](https://i.ibb.co/SXm608z/muse-heart-lastfm.png)](https://i.ibb.co/SXm608z/muse-heart-lastfm.png)
 
-- Player controller: modo fixo/estendido com canal e conversa de song requests (skin: default), configurável com o comando: /setup
+- Player controller: Fixed/extended mode with song request channel and conversation (skin: default), configurable with the command: /setup
 
 [![](https://i.ibb.co/5cZ7JGs/image.png)](https://i.ibb.co/5cZ7JGs/image.png)
 
-- Player controller: modo fixo/estendido com canal de song-request em forum com suporte a status automático no canal de voz e palco
+- Player controller: Fixed/extended mode with song request channel in forum with support for automatic status in the voice channel and Stage
 
 [![](https://i.ibb.co/9Hm5cyG/playercontrollerforum.png)](https://i.ibb.co/9Hm5cyG/playercontrollerforum.png)
 
-* Há diversas outras skins, veja todas usando o comando /change_skin (você também pode criar outras, use os modelos padrões que estão na pasta [skins](utils/music/skins/) como referência, crie uma cópia com outro nome e modifique a seu gosto).
+* There are several other skins; see them all using the /change_skin command (you can also create your own. Use the default templates in the [skins](utils/music/skins/) folder as a reference, create a copy with a different name, and modify it to your liking).
 
 </details>
 
-## Teste agora mesmo criando/reusando um bot próprio com essa source fazendo deploy em um dos serviços abaixo:
+## Test it right now by creating/reusing your own bot with this source by deploying it to one of the services below:
 
 ---
 
@@ -46,7 +46,7 @@ Mais previews:
 Repl.it
 </summary>
 
-Link do guia com imagens: https://gist.github.com/zRitsu/70737984cbe163f890dae05a80a3ddbe
+Link to the guide with images: https://gist.github.com/zRitsu/70737984cbe163f890dae05a80a3ddbe
 </details>
 
 ---
@@ -59,20 +59,15 @@ Render.com
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/zRitsu/MuseHeart-MusicBot/tree/main)
 
-* **[ 1 ]** - No campo **TOKEN_BOT_1** coloque o token do bot **( [tutorial de como obter](https://www.youtube.com/watch?v=lfdmZQySTXE) )**. `Nota: Caso queira, no campo TOKEN você pode incluir token de mais bots para ter bots extras pra ativar o suporte a multi-voice incluindo mais tokens no value (separando com espaços).`
+* **[ 1 ]** - In the field **TOKEN_BOT_1** enter the bot token **( [tutorial on how to obtain](https://www.youtube.com/watch?v=lfdmZQySTXE) )**. `Note: If you wish, in the TOKEN field you can include tokens from more bots to have additional bots to activate multi-voice support by including more tokens in the value (separating with spaces).`
 
+* **[ 2 ]** - In the **DEFAULT_PREFIX** field, enter a prefix for the bot.
 
-* **[ 2 ]** - No campo **DEFAULT_PREFIX** coloque um prefixo para o bot.
+* **[ 3 ]** - In the **SPOTIFY_CLIENT_ID** and **SPOTIFY_CLIENT_SECRET** fields, enter your Spotify keys **( [tutorial on how to obtain](https://www.youtube.com/watch?v=ceKQjWiCyWE) )**.
 
+* **[ 4 ]** - In the **MONGO** field, enter the link to your MongoDB database **( [tutorial on how to obtain](https://www.youtube.com/watch?v=x1Gq5beRx9k) )**.
 
-* **[ 3 ]** - Nos campos **SPOTIFY_CLIENT_ID** e **SPOTIFY_CLIENT_SECRET** coloque as suas keys do spotify **( [tutorial de como obter](https://www.youtube.com/watch?v=ceKQjWiCyWE) )**.
-
-
-* **[ 4 ]** - No campo **MONGO** coloque o link da sua database do MongoDB **( [tutorial de como obter](https://www.youtube.com/watch?v=x1Gq5beRx9k) )**.
-
-
-* **[ 5 ]** - Clique em Apply e aguarde o processo de build até o bot iniciar (isso pode demorar bastante, no mínimo uns 13 minutos ou mais para o deploy ser finalizado + bot iniciar + servidor lavalink iniciar).
-</details>
+* **[ 5 ]** - Click Apply and wait for the build process until the bot starts (this can take a long time, at least 13 minutes or more for the deployment to complete + the bot to start + the lavalink server to start). </details>
 
 ---
 
@@ -84,92 +79,86 @@ Gitpod
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/zRitsu/MuseHeart-MusicBot)
 
-* **[ 1 ]** - Abra o arquivo .env e coloque o token do bot no campo apropriado (caso não tenha, veja como obter com este tutorial [tutorial](https://www.youtube.com/watch?v=lfdmZQySTXE) de como obter). Também altamente recomendo usar mongodb, procure onde tem MONGO= no arquivo .env e nele coloque o link da sua db do mongodb (caso não tenha, veja como obter por este [tutorial](https://www.youtube.com/watch?v=x1Gq5beRx9k)).
+* **[ 1 ]** - Open the .env file and enter the bot's token in the appropriate field (if you don't have it, see how to get it with this tutorial [tutorial](https://www.youtube.com/watch?v=lfdmZQySTXE) on how to get it). I also highly recommend using MongoDB. Look for MONGO= in the .env file and insert the link to your MongoDB database (if you don't have it, see how to get it in this tutorial) (https://www.youtube.com/watch?v=x1Gq5beRx9k).
 
+* **[ 2 ]** - Right-click on the main.py file and then click: Run Python File in Terminal.
 
-* **[ 2 ]** - Clique com botão direito em cima do arquivo main.py e depois clique em: Run Python File in Terminal.
-
-
-* **Nota 1:** Requer verificação da conta por número de celular/mobile.
-* **Nota 2:** Não esqueça de ir na lista de [workspaces](https://gitpod.io/workspaces) e clicar nos 3 pontinhos do projeto e depois clicar em **pin**. `(isso evitará o worskpace ser deletado após 14 dias inativo)`
-* **Nota 3:** Não use o gitpod para hospedar / manter o bot online, pois a mesma tem bastante limitações no plano gratuito (mais informações [nesse link](https://www.gitpod.io/pricing)).
+* **Note 1:** Requires account verification by cell phone number.
+* **Note 2:** Don't forget to go to the [workspaces](https://gitpod.io/workspaces) list and click on the 3 dots for the project, then click **pin**. (This will prevent the workspace from being deleted after 14 days of inactivity.)
+* **Note 3:** Do not use GitPod to host/maintain the bot online, as it has significant limitations on the free plan (more information [at this link](https://www.gitpod.io/pricing)).
 </details>
 
 ---
 
 <details>
 <summary>
-Hospedando no seu próprio PC/VPS (windows/linux)
+Hosting on your own PC/VPS (Windows/Linux)
 </summary>
 <br>
 
-### Requisitos:
+### Requirements:
 
-* Python 3.9, 3.10 ou 3.11<br/>
-[Download pela Microsoft Store](https://apps.microsoft.com/store/detail/9PJPW5LDXLZ5?hl=pt-br&gl=BR) (Recomendável para usuários do windows 10/11).<br/>
-[Download direto do site oficial](https://www.python.org/downloads/release/python-3117/) (Marque esta opção ao instalar: **Add python to the PATH**)
-* [Git](https://git-scm.com/downloads) (Não escolha a versão portable)</br>
+* Python 3.9, 3.10, or 3.11<br/>
+[Download from the Microsoft Store](https://apps.microsoft.com/store/detail/9PJPW5LDXLZ5?hl=pt-br&gl=BR) (Recommended for Windows 10/11 users).<br/>
+[Download directly from the official website](https://www.python.org/downloads/release/python-3117/) (Check this option when installing: **Add python to the PATH**)
+* [Git](https://git-scm.com/downloads) (Do not choose the portable version)</br>
 
-* [JDK 17](https://www.azul.com/downloads) ou superior (Windows e Linux não é necessário instalar, ele é baixado automaticamente)</br>
+* [JDK 17](https://www.azul.com/downloads) or higher (Windows and Linux do not need to be installed; it is downloaded automatically)</br>
 
-`Nota: esta source requer no mínimo 512mb de RAM E 1Ghz de CPU para rodar normalmente (caso rode o Lavalink na mesma instância do bot considerando que o bot seja privado).`
+`Note: This source code requires at least 512MB of RAM AND 1GHz CPU to run normally (if you run Lavalink in the same instance as the bot, assuming the bot is private).
 
-### Iniciar bot (guia rápido):
+### Start the bot (quick guide):
 
-* Baixe esta source como [zip](https://github.com/zRitsu/MuseHeart-MusicBot/archive/refs/heads/main.zip) e extraia em seguida (Ou use o comando abaixo no terminal/cmd e abra a pasta em seguida):
+* Download this source as a zip file (https://github.com/zRitsu/MuseHeart-MusicBot/archive/refs/heads/main.zip) and extract it (or use the command below in the terminal/cmd and then open the folder):
 ```shell
 git clone https://github.com/zRitsu/MuseHeart-MusicBot.git
 ```
-* dê clique-duplo no arquivo source_setup.sh (ou apenas setup caso o seu windows não esteja exibindo extensões de arquivo) e aguarde.</br>
-`Caso esteja usando linux use o comando no terminal:` 
+* Double-click the source_setup.sh file (or just setup if your Windows isn't displaying file extensions) and wait.
+```If you're using Linux, use the command in the terminal:`
 ```shell
 bash source_setup.sh
 ```
-* Vai aparecer um arquivo com nome **.env**, edite ele e coloque o token do bot no campo apropriado (você também pode editar outras coisas deste mesmo arquivo caso queira fazer ajustes específicos no bot).</br>
-`Nota: Caso não tenha criado uma conta de bot,` [veja este tutorial](https://www.youtube.com/watch?v=lfdmZQySTXE) `para criar seu bot e obter o token necessário.`</br>`Também altamente recomendo usar mongodb, procure onde tem MONGO= no arquivo .env e nele coloque o link da sua db do mongodb (caso não tenha, veja como obter por este` [tutorial](https://www.youtube.com/watch?v=x1Gq5beRx9k)`). ` 
-* Agora basta apenas abrir o arquivo source_start_win.bat para iniciar o bot se o seu sistema for windows, caso seja linux dê clique duplo no start.sh (ou se preferir execute o bot usando o comando abaixo):
+* A file named **.env** will appear. Edit it and enter the bot's token in the field. appropriate (you can also edit other things in this same file if you want to make specific adjustments to the bot).</br>
+`Note: If you haven't created a bot account,` [see this tutorial](https://www.youtube.com/watch?v=lfdmZQySTXE) `to create your bot and obtain the necessary token.`</br>`I also highly recommend using mongodb, look for MONGO= in the .env file and place the link to your mongodb database there (if you don't have it, see how to obtain it in this` [tutorial](https://www.youtube.com/watch?v=x1Gq5beRx9k)`). `
+* Now, just open the source_start_win.bat file to start the bot if your system is Windows. If it's Linux, double-click start.sh (or, if you prefer, run the bot using the command below):
 ```shell
 bash source_start.sh
 ```
 
-### Notas:
+### Notes:
 
-* Para atualizar seu bot dê um clique duplo no update.sh (windows), p/ Linux use o comando no shell/terminal:
+* To update your bot, double-click update.sh (Windows). For Linux, use the command in the shell/terminal:
 ```shell
 bash source_update.sh
 ```
-`Ao atualizar, há chance de qualquer alteração manual feita ser perdida (caso não seja um fork desta source)...`<br/>
+`When updating, there's a chance that any manual changes you made will be lost (if it's not a fork of this source)...`<br/>
 
-`Obs: Caso esteja rodando a source diretamente de uma máquina com windows (e que tenha git instalado) apenas dê um duplo-click no arquivo source_update.sh`
+`Note: If you're running the source directly from a Windows machine (and have Git installed), just double-click the source_update.sh file.`
 </details>
 
 ---
 
-Nota: há mais alguns guias na [wiki](https://github.com/zRitsu/MuseHeart-MusicBot/wiki).
+Note: There are some more guides in [wiki](https://github.com/zRitsu/MuseHeart-MusicBot/wiki).
 
-### Observações importantes:
+### Important Notes:
 
-* Você pode usar essa source como alternativa de self-hosting do meu bot principal (Muse Heart) pra hospedar/rodar seu próprio bot de música para uso privado ou em servidores públicos no qual você gerencia (que você tenha permissão de adicionar seu próprio bot no servidor). Entretanto não recomendo distribuir o bot usando essa source publicamente por não estar otimizado o suficiente pra lidar com alta demanda de servidores, mas se mesmo assim decidir fazer isso o bot terá que estar sob a [licença](/LICENSE) da source original e dependendo de onde o bot estiver sendo divulgado (ex: botlists) há possibilidade de seu bot ser apontado pelo uso dessa source.
+* You can use this source as an alternative to self-hosting my main bot (Muse Heart) to host/run your own music bot for private use or on public servers you manage (provided you have permission to add your own bot to the server). However, I do not recommend distributing the bot using this source publicly as it is not optimized enough to handle high server demand. However, if you still decide to do so, the bot must be under the [license](/LICENSE) of the original source, and depending on where the bot is being promoted (e.g., botlists), your bot may be flagged for using this source.
 
+* I recommend using the current source without any changes to the code. If you want to make modifications (and especially add new features), it is highly recommended that you have knowledge of Python, Disney, Lavalink, etc. And if you want to keep your modified source updated regularly using the base source, I also recommend having knowledge of Git (at least enough to perform a merge without errors).
 
-* Recomendo usar a source atual sem alterações no code. Caso queira fazer modificações (e principalmente adicionar novas funcionalidades) é altamente recomendável que tenha conhecimento em python, disnake, lavalink e etc. E caso queira manter sua source modificada com updates em dias usando a source base também recomendo ter conhecimento em git (pelo menos o necessário pra fazer um merge sem erros).
+* Support will not be provided if you modify the current source (except for custom skins), as I update it frequently, and modified versions tend to become outdated, making it difficult to provide support. Furthermore, depending on the modification or implementation, it may generate unknown errors that make it difficult to resolve the issue, and I may require you to use methods to update the code, which usually undoes these changes.
 
-
-* Não será fornecido suporte caso modifique a source atual (exceto para custom skins), pois atualizo ela com frequência e versões modificadas tendem a ficarem desatualizadas dificultando dar suporte por esse motivo (além de que dependendo da modificação ou implementação poder gerar erros desconhecidos que dificulta ao tentar resolver o problema e de eu exigir usar métodos pra atualizar o code que geralmente desfaz essas alterações).
-
-
-* Caso queira postar algum vídeo/tutorial usando essa source, você está totalmente livre para usá-la pra essa finalidade desde que esteja de acordo com os termos citados nos parágrafos acima.
+* If you want to post a video/tutorial using this source, you are completely free to use it for that purpose as long as you comply with the terms mentioned in the paragraphs above.
 
 ---
 
-### Caso tenha algum problema, poste uma [issue](https://github.com/zRitsu/MuseHeart-MusicBot/issues) detalhando o problema.
+### If you have any problems, please post an [issue](https://github.com/zRitsu/MuseHeart-MusicBot/issues) detailing the problem.
 
+## Special thanks and credits:
 
-## Agradecimentos especiais e créditos:
-
-* [DisnakeDev](https://github.com/DisnakeDev) (disnake) e ao Rapptz pelo [discord.py](https://github.com/Rapptz/discord.py) original
+* [DisnakeDev](https://github.com/DisnakeDev) (disnake) and Rapptz for the original [discord.py](https://github.com/Rapptz/discord.py)
 * [Pythonista Guild](https://github.com/PythonistaGuild) (wavelink)
-* [Lavalink-Devs](https://github.com/lavalink-devs) (lavalink e lavaplayer)
-* [DarrenOfficial](https://lavalink-list.darrennathanael.com/) Lavalink serverlist (Usuários que publicaram seus servidores lavalink estão listados no comando about junto com website/link).
-* E a todos os membros que me me ajudaram bastante com reports de erros (sendo nas [issues](https://github.com/zRitsu/MuseHeart-MusicBot/issues) e no servidor do discord)
-* Demais atribuições podem ser conferidas no [dependency graph](https://github.com/zRitsu/MuseHeart-MusicBot/network/dependencies)
+* [Lavalink-Devs](https://github.com/lavalink-devs) (lavalink and lavaplayer)
+* [DarrenOfficial](https://lavalink-list.darrennathanael.com/) Lavalink serverlist (Users who have published their lavalink servers are listed in the about command along with website/link).
+* And to all the members who helped me a lot with bug reports (both in [issues](https://github.com/zRitsu/MuseHeart-MusicBot/issues) and on the discord server).
+* Other attributions can be found in the [dependency graph](https://github.com/zRitsu/MuseHeart-MusicBot/network/dependencies)

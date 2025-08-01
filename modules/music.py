@@ -371,7 +371,7 @@ class Music(commands.Cog):
             if channel != me.voice and me.voice.channel:
                 txt = [
                     f"me moveu para o canal <#{channel.id}>",
-                    f"**Movido com sucesso para o canal** <#{channel.id}>"
+                    f"**Successfully moved to channel** <#{channel.id}>"
                 ]
 
                 deafen_check = False
