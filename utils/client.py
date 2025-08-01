@@ -249,7 +249,7 @@ class BotPool:
                         return
 
                     self.killing_state = "ratelimit"
-                    print("Aplicação com ratelimit do discord!")
+                    print("Discord ratelimit application!")
                     await asyncio.sleep(10)
                     raise e
 
@@ -257,8 +257,8 @@ class BotPool:
                     return
 
                 print(
-                    "Aplicação com ratelimit do discord!\n"
-                    "Finalizando/Reiniciando o processo em 5 segundos..."
+                    "Discord ratelimit application!\n"
+                    "Finishing/Restarting the process in 5 seconds..."
                 )
 
                 self.killing_state = True
@@ -277,24 +277,24 @@ class BotPool:
         if e:
 
             if isinstance(e, disnake.PrivilegedIntentsRequired):
-                e = "Você não ativou as Privileged Intents na sua aplicação<br>" \
-                    "Acesse o discord developer portal:<br>" \
+                e = "You have not enabled Privileged Intents in your application.<br>" \
+                    "Access the discord developer portal:<br>" \
                     "https://discord.com/developers/applications/<br>" \
-                    "e clique na sua aplicação e depois clique no menu \"bot\"<br>" \
-                    "e em seguida ative todas as intents.<br>" \
-                    "Print de exemplo: https://i.imgur.com/a9c1DHT.png<br>" \
-                    "Após corrigir, reinicie a aplicação."
+                    "and click on your application and then click on the menu \"bot\"<br>" \
+                    "and then activate all intents.<br>" \
+                    "Sample print: https://i.imgur.com/a9c1DHT.png<br>" \
+                    "After fixing, restart the application."
 
-                print(("=" * 30) + f"\nFalha ao iniciar o bot configurado no: {bot.identifier}\n" + e.replace('<br>', '\n') + "\n" + ("=" * 30))
+                print(("=" * 30) + f"\nFailed to start the bot configured on: {bot.identifier}\n" + e.replace('<br>', '\n') + "\n" + ("=" * 30))
 
             elif isinstance(e, disnake.LoginFailure) and "Improper token" in str(e):
-                e = "Foi utilizado um token inválido.<br>" \
-                    "Revise se o token informado está correto<br>" \
-                    "ou se o token foi resetado<br>" \
-                    "ou copiado do local correto ( ex: https://i.imgur.com/k894c1q.png )<br>" \
-                    "Após corrigir, reinicie a aplicação."
+                e = "An invalid token was used.<br>" \
+                    "Check if the entered token is correct<br>" \
+                    "or if the token was reset<br>" \
+                    "or copied from the correct location ( ex: https://i.imgur.com/k894c1q.png )<br>" \
+                    "After fixing, restart the application."
 
-                print(("=" * 30) + f"\nFalha ao iniciar o bot configurado no: {bot.identifier}\n" + e.replace('<br>', '\n') + "\n" + ( "=" * 30))
+                print(("=" * 30) + f"\nFailed to start the bot configured on: {bot.identifier}\n" + e.replace('<br>', '\n') + "\n" + ( "=" * 30))
 
             else:
                 traceback.print_tb(e.__traceback__)
@@ -336,12 +336,12 @@ class BotPool:
         retries = 0
         exception = None
 
-        print(f"📶 - Verificando se o servidor de música [{data['identifier']}] está disponível.")
+        print(f"📶 - Checking if the music server [{data['identifier']}] is available.")
 
         while True:
             if retries >= max_retries:
                 print(
-                    f"❌ - Todas as tentativas de verificar o servidor [{data['identifier']}] falharam. Causa: {repr(exception)}")
+                    f"❌ - All attempts to verify the server [{data['identifier']}] failed. Cause: {repr(exception)}")
                 return
             else:
                 await asyncio.sleep(backoff)
