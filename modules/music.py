@@ -370,7 +370,7 @@ class Music(commands.Cog):
 
             if channel != me.voice and me.voice.channel:
                 txt = [
-                    f"me moveu para o canal <#{channel.id}>",
+                    f"moved me to the channel <#{channel.id}>",
                     f"**Successfully moved to channel** <#{channel.id}>"
                 ]
 
@@ -379,8 +379,8 @@ class Music(commands.Cog):
 
             else:
                 txt = [
-                    f"me conectou no canal <#{channel.id}>",
-                    f"**Conectei no canal** <#{channel.id}>"
+                    f"connected me to the channel <#{channel.id}>",
+                    f"**I connected to the channel** <#{channel.id}>"
                 ]
 
             await self.interaction_message(ctx, txt, emoji="🔈", rpc_update=True)
@@ -409,10 +409,10 @@ class Music(commands.Cog):
                 await text_channel.send(
                     embed=disnake.Embed(
                         title="Aviso:",
-                        description="Para manter sua privacidade e me ajudar a economizar "
-                                    "recursos, recomendo desativar meu áudio do canal clicando "
-                                    "com botão direito sobre mim e em seguida marcar: desativar "
-                                    "áudio no servidor.",
+                        description="To maintain your privacy and help me save money "
+                                    "features, I recommend muting my channel audio by clicking "
+                                    "right click on me and then select: disable "
+                                    "audio on the server.",
                         color=self.bot.get_color(me),
                     ).set_image(
                         url="https://cdn.discordapp.com/attachments/554468640942981147/1012533546386210956/unknown.png"
@@ -438,7 +438,7 @@ class Music(commands.Cog):
             else:
                 embed = disnake.Embed(color=self.bot.get_color(me))
 
-                embed.description = f"**Preciso que algum staff me convide para falar no palco: " \
+                embed.description = f"**I need some staff to invite me to speak on stage: " \
                                     f"[{channel.name}]({channel.jump_url}).**"
 
                 embed.set_footer(
