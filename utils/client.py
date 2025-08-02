@@ -353,7 +353,7 @@ class BotPool:
                                 data["info"] = await r.json()
                                 data["info"]["check_version"] = 4
                             elif r.status == 403:
-                                print(f"❌ - Lavalink Server [{data['identifier']}] - Senha incorreta!")
+                                print(f"❌ - Lavalink Server [{data['identifier']}] - Incorrect password!")
                                 return
                             elif r.status != 404:
                                 raise Exception(f"❌ - [{r.status}]: {await r.text()}"[:300])
@@ -366,7 +366,7 @@ class BotPool:
                 except Exception as e:
                     exception = e
                     if data["identifier"] != "LOCAL":
-                        print(f'⚠️ - Falha ao verificar o servidor [{data["identifier"]}], '
+                        print(f'⚠️ - Failed to verify server [{data["identifier"]}], '
                               f'nova tentativa [{retries}/{max_retries}] em {backoff} segundos.')
                     backoff += 2
                     retries += 1
@@ -389,10 +389,10 @@ class BotPool:
                                 if resp.status != 204:
                                     resp.raise_for_status()
                         except Exception as e:
-                            print(f"🌋 - Falha ao aplicar o Youtube refreshToken no servidor lavalink: {data['identifier']} - {repr(e)}")
+                            print(f"🌋 - Failed to apply Youtube refreshToken on lavalink server: {data['identifier']} - {repr(e)}")
                             break
                         else:
-                            print(f"🌋 - Youtube refreshToken aplicado no servidor lavalink: {data['identifier']}")
+                            print(f"🌋 - Youtube refreshToken applied on lavalink server: {data['identifier']}")
                             break
 
         for bot in self.get_all_bots():
@@ -499,7 +499,7 @@ class BotPool:
             try:
                 skin_file = import_module(f"utils.music.skins.normal_player.{skin}")
                 if not hasattr(skin_file, "load"):
-                    print(f"Skin ignorada: {skin}.py | Função load() não configurada/encontrada...")
+                    print(f"Skin ignorada: {skin}.py | Function load() not configured/found...")
                     continue
                 self.player_skins[skin] = skin_file.load()
             except Exception:

@@ -94,21 +94,21 @@ def parse_error(
     error = getattr(error, 'original', error)
 
     if isinstance(error, NotDJorStaff):
-        error_txt = "**Você deve estar na lista de DJ ou ter a permissão de **Mover Membros** " \
-                    "para usar este comando.**"
+        error_txt = "**You must be on the DJ roster or have the **Move Members permission** " \
+                    "to use this command.**"
 
     elif isinstance(error, MissingVoicePerms):
-        error_txt = f"**Não tenho permissão para conectar/falar no canal:** {error.voice_channel.mention}"
+        error_txt = f"**I do not have permission to connect/talk on the channel:** {error.voice_channel.mention}"
 
     elif isinstance(error, commands.NotOwner):
-        error_txt = "**Apenas meu(s) desenvolvedor(es) pode(m) usar esse comando.**"
+        error_txt = "**Only my developer(s) can use this command.**"
 
     elif isinstance(error, commands.BotMissingPermissions):
-        error_txt = "Não tenho as seguintes permissões para executar esse comando: ```\n{}```" \
+        error_txt = "I do not have the following permissions to run this command: ```\n{}```" \
             .format(", ".join(perms_translations.get(perm, perm) for perm in error.missing_permissions))
 
     elif isinstance(error, commands.MissingPermissions):
-        error_txt = "Você não possui as seguintes permissões para executar esse comando: ```\n{}```" \
+        error_txt = "You do not have the following permissions to run this command: ```\n{}```" \
             .format(", ".join(perms_translations.get(perm, perm) for perm in error.missing_permissions))
 
     elif isinstance(error, GenericError):
@@ -118,41 +118,41 @@ def parse_error(
             send_error = True
 
     elif isinstance(error, NotRequester):
-        error_txt = "**Você deve ter pedido a música atual ou estar na lista de DJ ou ter a permissão de " \
-                    "**Gerenciar canais** para pular músicas.**"
+        error_txt = "**You must have requested the current song or be on the DJ list or have permission from " \
+                    "**Manage channels** to skip songs.**"
 
     elif isinstance(error, DiffVoiceChannel):
-        error_txt = "**Você deve estar no meu canal de voz atual para usar esse comando.**"
+        error_txt = "**You must be in my current voice channel to use this command.**"
 
     elif isinstance(error, NoSource):
-        error_txt = "**Não há músicas no player atualmente.**"
+        error_txt = "**There are currently no songs in the player.**"
 
     elif isinstance(error, NoVoice):
-        error_txt = "**Você deve entrar em um canal de voz para usar esse comando.**"
+        error_txt = "**You must join a voice channel to use this command.**"
 
     elif isinstance(error, NoPlayer):
         try:
-            error_txt = f"**Não há player ativo no canal {ctx.author.voice.channel.mention}.**"
+            error_txt = f"**There is no active player on the channel {ctx.author.voice.channel.mention}.**"
         except AttributeError:
-            error_txt = "**Não há player inicializado no servidor.**"
+            error_txt = "**There is no player initialized on the server.**"
 
     elif isinstance(error, (commands.UserInputError, commands.MissingRequiredArgument)) and ctx.command.usage:
 
-        error_txt = "### Você usou o comando de forma incorreta.\n"
+        error_txt = "### You used the command incorrectly.\n"
 
         if ctx.command.usage:
 
             prefix = ctx.prefix if str(ctx.me.id) not in ctx.prefix else f"@{ctx.me.display_name} "
 
-            error_txt += f'📘 **⠂Como Usar:** ```\n{ctx.command.usage.replace("{prefix}", prefix).replace("{cmd}", ctx.command.name).replace("{parent}", ctx.command.full_parent_name)}```\n' \
-                        f"⚠️ **⠂Notas sobre o uso dos argumentos no comando:** ```\n" \
-                        f"[] = Obrigatório | <> = Opcional```\n"
+            error_txt += f'📘 **⠂How to Use:** ```\n{ctx.command.usage.replace("{prefix}", prefix).replace("{cmd}", ctx.command.name).replace("{parent}", ctx.command.full_parent_name)}```\n' \
+                        f"⚠️ **⠂Notes on using arguments in the command:** ```\n" \
+                        f"[] = Mandatory | <> = Optional```\n"
 
     elif isinstance(error, MissingSpotifyClient):
-        error_txt = "**Não há suporte a links do spotify no momento.**"
+        error_txt = "**Spotify links are not supported at this time.**"
 
     elif isinstance(error, commands.NoPrivateMessage):
-        error_txt = "Esse comando não pode ser executado em mensagens privadas."
+        error_txt = "This command cannot be executed in private messages."
 
     elif isinstance(error, MissingSessionID):
         error_txt = f"**O servidor de música {error.node.identifier} está desconectado, por favor aguarde alguns segundos e tente novamente.**"
@@ -161,7 +161,7 @@ def parse_error(
         remaing = int(error.retry_after)
         if remaing < 1:
             remaing = 1
-        error_txt = "**Você deve aguardar {} para usar esse comando.**".format(time_format(int(remaing) * 1000, use_names=True))
+        error_txt = "**You must wait for {} to use this command.**".format(time_format(int(remaing) * 1000, use_names=True))
 
     elif isinstance(error, EmptyFavIntegration):
 
@@ -178,14 +178,14 @@ def parse_error(
         mention_author = True
 
         components = [
-            disnake.ui.Button(label="Abrir o gerenciador de favoritos e integrações",
+            disnake.ui.Button(label="Open the Bookmarks and Integrations Manager",
                               custom_id="musicplayer_fav_manager", emoji="⭐"),
         ]
 
     elif isinstance(error, commands.MaxConcurrencyReached):
         txt = f"{error.number} vezes " if error.number > 1 else ''
         txt = {
-            commands.BucketType.member: f"você já usou esse comando {txt}no servidor",
+            commands.BucketType.member: f"Have you ever used this command {txt} on the server",
             commands.BucketType.guild: f"esse comando já foi usado {txt}no servidor",
             commands.BucketType.user: f"você já usou esse comando {txt}",
             commands.BucketType.channel: f"esse comando já foi usado {txt}no canal atual",

@@ -58,7 +58,7 @@ class PlayerSession(commands.Cog):
         await self.save_info(player)
 
     @commands.is_owner()
-    @commands.command(hidden=True, description="Salvar informações dos players na database instantaneamente.", aliases=["svplayers"])
+    @commands.command(hidden=True, description="Save player information to the database instantly.", aliases=["svplayers"])
     async def saveplayers(self, ctx: CustomContext):
 
         await ctx.defer()
@@ -73,7 +73,7 @@ class PlayerSession(commands.Cog):
                 except:
                     continue
 
-        txt = f"As informações dos players atuais foram salvos com sucesso ({player_count})!" if player_count else "Não há player ativo..."
+        txt = f"Current players information has been successfully saved ({player_count})!" if player_count else "There is no active player..."
         await ctx.send(txt)
 
     async def queue_updater_task(self, player: LavalinkPlayer):
@@ -242,7 +242,7 @@ class PlayerSession(commands.Cog):
             if self.bot.config["PLAYER_SESSIONS_MONGODB"] and self.bot.config["MONGO"]:
                 for d in local_sessions:
                     data_list[d["_id"]] = d
-                    print(f"{self.bot.user} - Migrando dados de sessões do server: {d['_id']} | DB Local -> Mongo")
+                    print(f"{self.bot.user} - Migrating session data from the server: {d['_id']} | DB Local -> Mongo")
                     await self.save_session_mongo(d["_id"], d)
                     self.delete_data_local(d["_id"])
                 for d in mongo_sessions:
@@ -251,7 +251,7 @@ class PlayerSession(commands.Cog):
             else:
                 for d in mongo_sessions:
                     data_list[d["_id"]] = d
-                    print(f"{self.bot.user} - Migrando dados de sessões do server: {d['_id']} | Mongo -> DB Local")
+                    print(f"{self.bot.user} - Migrating session data from the server: {d['_id']} | Mongo -> DB Local")
                     await self.save_session_local(d["_id"], d)
                     if self.bot.config["MONGO"]:
                         await self.delete_data_mongo(d["_id"])
@@ -272,7 +272,7 @@ class PlayerSession(commands.Cog):
                     await asyncio.sleep(1)
 
         except Exception:
-            print(f"{self.bot.user} - Falha ao retomar player {data['_id']}:\n{traceback.format_exc()}")
+            print(f"{self.bot.user} - Failed to resume player {data['_id']}:\n{traceback.format_exc()}")
 
         self.bot.player_resumed = True
 
@@ -347,7 +347,7 @@ class PlayerSession(commands.Cog):
             break
 
         if not wait_counter:
-            print(f"{self.bot.user} - {guild.name}: Player ignorado devido a demora para conectar no canal de voz.")
+            print(f"{self.bot.user} - {guild.name}: Player ignored due to delay in connecting to voice channel.")
             return
 
         if isinstance(voice_channel, disnake.StageChannel) and \
@@ -361,7 +361,7 @@ class PlayerSession(commands.Cog):
             try:
                 await guild.me.edit(suppress=False)
             except Exception as e:
-                print(f"{self.bot.user} - Falha ao falar no palco do servidor {guild.name}. Erro: {repr(e)}")
+                print(f"{self.bot.user} - Failed to speak on server stage {guild.name}. Error: {repr(e)}")
 
     async def resume_player(self, data: dict, hints: list = None):
 
@@ -376,7 +376,7 @@ class PlayerSession(commands.Cog):
             db_date = data.get("time")
 
             if not db_date or (not guild and ((disnake.utils.utcnow() - db_date)).total_seconds() > 172800):
-                print(f"{self.bot.user} - Limpando informações do player: {data['_id']}")
+                print(f"{self.bot.user} - Clearing player information: {data['_id']}")
                 await self.delete_data(data["_id"])
                 return
 

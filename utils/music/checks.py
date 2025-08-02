@@ -122,7 +122,7 @@ async def check_pool_bots(inter, only_voiced: bool = False, check_player: bool =
         return update_attr(inter, inter.bot, inter.guild)
 
     if not inter.guild_id:
-        raise GenericError("**Esse comando não pode ser usado nas mensagens privada.**")
+        raise GenericError("**This command cannot be used in private messages.**")
 
     try:
         if inter.bot.user.id in inter.author.voice.channel.voice_states:
