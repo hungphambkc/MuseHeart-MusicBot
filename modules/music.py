@@ -900,16 +900,16 @@ class Music(commands.Cog):
 
             opts = []
 
-            txt = "### `[⭐] Favoritos [⭐]`\n"
+            txt = "### `[⭐] Favorites [⭐]`\n"
 
             if user_data["fav_links"]:
-                opts.append(disnake.SelectOption(label="Usar favorito", value=">> [⭐ Favoritos ⭐] <<", emoji="⭐"))
-                txt += f"`Tocar música ou playlist que você curtiu ou que você tenha adicionado nos seus favoritos.`\n"
+                opts.append(disnake.SelectOption(label="Use favorite", value=">> [⭐ Favorites ⭐] <<", emoji="⭐"))
+                txt += f"`Play music or playlists that you liked or added to your favorites.`\n"
 
             else:
-                txt += f"`Você não possui favoritos...`\n"
+                txt += f"`You have no favorites...`\n"
 
-            txt += f"-# Você pode gerenciar seus favoritos usando o comando {fav_slashcmd}.\n" \
+            txt += f"-# You can manage your favorites using the command {fav_slashcmd}.\n" \
                    f"### `[💠] Integrações [💠]`\n"
 
             if user_data["integration_links"]:
@@ -1042,7 +1042,7 @@ class Music(commands.Cog):
 
                 fav_opts.append({"url": v["url"], "option": disnake.SelectOption(label=fix_characters(k[6:], 45), value=f"> itg: {k}", description=f"[💠 Integração 💠] -> {platform}", emoji=emoji)})
 
-        elif query.startswith(">> [⭐ Favoritos ⭐] <<"):
+        elif query.startswith(">> [⭐ Favorites ⭐] <<"):
             query = ""
             menu = "favs"
             for k, v in user_data["fav_links"].items():
