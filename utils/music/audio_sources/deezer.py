@@ -116,7 +116,7 @@ class DeezerClient:
             async with ClientSession() as session:
                 async with session.get(url, allow_redirects=False) as r:
                     if 'location' not in r.headers:
-                        raise GenericError("**Falha ao obter resultado para o link informado...**")
+                        raise GenericError("**Failed to get result for the given link...**")
                     url = str(r.headers["location"])
 
         url_type, url_id = matches.groups()[-2:]
@@ -225,14 +225,14 @@ class DeezerClient:
             for a in result['data']:
 
                 if url_id == a['artist']['id']:
-                    data["playlistInfo"]["name"] = f"As mais tocadas de: {a['artist']['name']}"
+                    data["playlistInfo"]["name"] = f"Most played from: {a['artist']['name']}"
                     break
 
                 artist = None
 
                 for c in a['contributors']:
                     if c['id'] == url_id:
-                        artist = f"As mais tocadas de: {c['name']}"
+                        artist = f"Most played from: {c['name']}"
                         break
 
                 if artist:
@@ -254,10 +254,10 @@ class DeezerClient:
             tracks_data = result["tracks"]["data"]
 
         else:
-            raise GenericError(f"**Link do deezer não reconhecido/suportado:**\n{url}")
+            raise GenericError(f"**Deezer link not recognized/supported:**\n{url}")
 
         if not tracks_data:
-            raise GenericError("**Não houve resultados no link do deezer informado...**")
+            raise GenericError("**There were no results in the provided deezer link...**")
 
         data["playlistInfo"]["selectedTrack"] = -1
         data["playlistInfo"]["type"] = url_type
