@@ -43,13 +43,13 @@ class MiniStaticSkin:
 
         if not player.paused:
             embed.set_author(
-                name="Tocando Agora:",
+                name="Now Playing:",
                 icon_url=music_source_image(player.current.info["sourceName"]),
             )
 
         else:
             embed.set_author(
-                name="Em Pausa:",
+                name="On Pause:",
                 icon_url="https://cdn.discordapp.com/attachments/480195401543188483/896013933197013002/pause.png"
             )
 
@@ -58,27 +58,27 @@ class MiniStaticSkin:
 
         elif player.loop:
             if player.loop == 'current':
-                embed.description += ' `[🔂 música atual]`'
+                embed.description += ' `[🔂 current music]`'
             else:
-                embed.description += ' `[🔁 fila]`'
+                embed.description += ' `[🔁 queue]`'
 
         if not player.current.autoplay:
             embed.description += f" `[`<@{player.current.requester}>`]`"
         else:
             try:
-                embed.description += f" [`[Recomendada]`]({player.current.info['extra']['related']['uri']})"
+                embed.description += f" [`[Recommended]`]({player.current.info['extra']['related']['uri']})"
             except:
-                embed.description += "` [Recomendada]`"
+                embed.description += "` [Recommended]`"
 
         duration = "🔴 Livestream" if player.current.is_stream else \
             time_format(player.current.duration)
 
-        embed.add_field(name="⏰ **⠂Duração:**", value=f"```ansi\n[34;1m{duration}[0m\n```")
-        embed.add_field(name="💠 **⠂Uploader/Artista:**",
+        embed.add_field(name="⏰ **⠂Duration:**", value=f"```ansi\n[34;1m{duration}[0m\n```")
+        embed.add_field(name="💠 **⠂Uploader/Artist:**",
                         value=f"```ansi\n[34;1m{fix_characters(player.current.author, 18)}[0m\n```")
 
         if player.command_log:
-            embed.add_field(name=f"{player.command_log_emoji} **⠂Última Interação:**",
+            embed.add_field(name=f"{player.command_log_emoji} **⠂Last Interaction:**",
                             value=f"{player.command_log}", inline=False)
 
         embed.set_image(url=player.current.thumb or "https://media.discordapp.net/attachments/480195401543188483/987830071815471114/musicequalizer.gif")
@@ -107,7 +107,7 @@ class MiniStaticSkin:
                     continue
 
                 if has_stream:
-                    duration = time_format(t.duration) if not t.is_stream else '🔴 Ao vivo'
+                    duration = time_format(t.duration) if not t.is_stream else '🔴 Live'
 
                     queue_txt += f"`┌ {n + 1})` [`{fix_characters(t.title, limit=34)}`]({t.uri})\n" \
                                  f"`└ ⏲️ {duration}`" + (f" - `Repetições: {t.track_loops}`" if t.track_loops else "") + \

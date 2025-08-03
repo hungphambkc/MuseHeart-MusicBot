@@ -32,17 +32,17 @@ def can_send_message(
         send_message_perm = channel.permissions_for(channel.guild.me).send_messages
 
     if not send_message_perm:
-        raise GenericError(f"**{bot.mention} não possui permissão de enviar mensagens no canal:** {channel.mention}")
+        raise GenericError(f"**{bot.mention} does not have permission to send messages in the channel:** {channel.mention}")
 
     if not channel.permissions_for(channel.guild.me).embed_links:
-        raise GenericError(f"**{bot.mention} não possui permissão de inserir links no canal: {channel.mention}**")
+        raise GenericError(f"**{bot.mention} does not have permission to insert links in the channel: {channel.mention}**")
 
     return True
 
 
 async def check_requester_channel(ctx: CustomContext):
 
-    error_msg = "**No momento você só pode usar comandos de barra (/) nesse canal!**"
+    error_msg = "**You can currently only use slash (/) commands in this channel!**"
 
     guild_data = await ctx.bot.get_data(ctx.guild_id, db_name=DBModel.guilds)
 
@@ -323,27 +323,27 @@ async def check_pool_bots(inter, only_voiced: bool = False, check_player: bool =
 
     if not bot_in_guild:
 
-        msg = "**Não há bots de música compatíveis no servidor...**"
+        msg = "**There are no supported music bots on the server...**"
 
         if extra_bots_counter:
-            msg += f"\n\nVocê terá que adicionar pelo menos um bot compatível clicando no botão abaixo:"
-            components = [disnake.ui.Button(custom_id="bot_invite", label=f"Adicionar bot{'s'[:extra_bots_counter^1]}.")]
+            msg += f"\n\nYou will need to add at least one compatible bot by clicking the button below:"
+            components = [disnake.ui.Button(custom_id="bot_invite", label=f"Add bot{'s'[:extra_bots_counter^1]}.")]
 
     else:
 
         if bot_missing_perms:
-            msg = f"**Há bots de música disponíveis no servidor mas estão sem permissão de enviar mensagens no canal <#{inter.channel_id}>**:\n\n" + \
+            msg = f"**There are music bots available on the server but they are not allowed to send messages in the channel. <#{inter.channel_id}>**:\n\n" + \
                 ", ".join(b.user.mention for b in bot_missing_perms)
         else:
-            msg = "**Todos os bots estão em uso no nomento...**\n\n**Você pode conectar em um dos canais abaixo onde há sessões ativas:**\n" + ", ".join(voice_channels)
+            msg = "**All bots are currently in use...**\n\n**You can connect to one of the channels below where there are active sessions:**\n" + ", ".join(voice_channels)
 
         if extra_bots_counter:
             if inter.author.guild_permissions.manage_guild:
-                msg += "\n\n**Ou se preferir, você pode adicionar mais bots de música no servidor atual clicando no botão abaixo:**"
+                msg += "\n\n**Or if you prefer, you can add more music bots to the current server by clicking the button below:**"
             else:
-                msg += "\n\n**Ou, se preferir, você pode pedir para um administrador/manager do servidor para clicar no botão abaixo " \
-                        "para adicionar mais bots de música no servidor atual.**"
-            components = [disnake.ui.Button(custom_id="bot_invite", label="Adicione mais bots de música clicando aqui")]
+                msg += "\n\n**Or, if you prefer, you can ask a server administrator/manager to click the button below " \
+                        "to add more music bots to the current server.**"
+            components = [disnake.ui.Button(custom_id="bot_invite", label="Add more music bots by clicking here")]
 
     inter.bot.dispatch("pool_dispatch", inter, None)
 
@@ -395,7 +395,7 @@ def can_send_message_check():
             if inter.guild_id:
                 return True
 
-            raise GenericError("**Este comando deve ser usado em um servidor...**")
+            raise GenericError("**This command must be used on a server...**")
 
         try:
             bot = inter.music_bot
@@ -525,8 +525,8 @@ def check_queue_loading():
             raise NoPlayer()
 
         if player.locked:
-            raise GenericError("**Não é possível executar essa ação com o processamento da música em andamento "
-                               "(por favor aguarde mais alguns segundos e tente novamente).**")
+            raise GenericError("**This action cannot be performed while music processing is in progress. "
+                               "(please wait a few more seconds and try again).**")
 
         return True
 
@@ -554,8 +554,8 @@ def check_stage_topic():
 
         if player.stage_title_event and (time_:=int((disnake.utils.utcnow() - player.start_time).total_seconds())) < time_limit and not (await bot.is_owner(inter.author)):
             raise GenericError(
-                f"**Você terá que aguardar {time_format((time_limit - time_) * 1000, use_names=True)} para usar essa função "
-                f"com o anúncio automático do palco ativo...**"
+                f"**You'll have to wait {time_format((time_limit - time_) * 1000, use_names=True)} to use this function "
+                f"with automatic stage announcement active...**"
             )
 
         return True
@@ -578,8 +578,8 @@ def check_yt_cooldown():
 
         if player.current and player.current.info["sourceName"] == "youtube" and (remaining:=(disnake.utils.utcnow() - player.start_time).total_seconds()) < bot.config["YOUTUBE_TRACK_COOLDOWN"]:
             if not await bot.is_owner(inter.author):
-                raise GenericError("**{}, você só pode pular a música atual do youtube em {}**.\n"
-                                   "-# Isso é uma forma de ajudar a evitar possíveis bloqueios do youtube na reprodução da música".format(inter.author.mention, time_format((bot.config["YOUTUBE_TRACK_COOLDOWN"] - int(remaining))*1000, use_names=True)))
+                raise GenericError("**{}, you can only skip the current youtube song in {}**.\n"
+                                   "-# This is a way to help avoid possible YouTube blocks on music playback.".format(inter.author.mention, time_format((bot.config["YOUTUBE_TRACK_COOLDOWN"] - int(remaining))*1000, use_names=True)))
 
         return True
 
@@ -624,18 +624,18 @@ def get_available_bots_info(pool: BotPool, guild_id: int, member: disnake.Member
     components = []
 
     if available_bots:
-        txts.append(f"Você pode usar outro{(s:='s'[:(abcount:=len(available_bots))^1])} bot{s} de música disponíve{'is'[:abcount^1] or 'l'} no servidor para usar em outro canal de voz: " + " ".join(available_bots))
+        txts.append(f"You can use another{(s:='s'[:(abcount:=len(available_bots))^1])} bot{s} of music available{'is'[:abcount^1] or 'l'} on the server to use on another voice channel: " + " ".join(available_bots))
     else:
         t = ""
         if voice_channels:
-            t += f"Você pode se juntar em um dos canais com sessões ativas no servidor: " + " ".join(voice_channels)
+            t += f"You can join one of the channels with active sessions on the server: " + " ".join(voice_channels)
         if extra_bot_counter:
-            t += "\n\n" + ("Ou se preferir, você pode" if t else "Você pode")
+            t += "\n\n" + ("Or if you prefer, you can" if t else "You can")
             if not member.guild_permissions.manage_guild:
-                t += "solicitar para um administrador do server "
-            t += "adicionar mais bots de música clicando no botão abaixo."
+                t += "request to a server administrator "
+            t += "add more music bots by clicking the button below."
 
-            components = [disnake.ui.Button(custom_id="bot_invite", label="Adicione mais bots de música clicando aqui")]
+            components = [disnake.ui.Button(custom_id="bot_invite", label="Add more music bots by clicking here")]
 
         if t:
             txts.append(t)
@@ -674,8 +674,8 @@ async def check_player_perm(inter, bot: BotCore, channel, guild_data: dict = Non
 
         txt, components = get_available_bots_info(bot.pool, player.guild_id, inter.author)
 
-        raise GenericError("Apenas membros com a permissão de **gerenciar canais** "
-                           f"podem usar esse comando/botão com o **modo 24/7 ativo** no canal <#{player.channel_id}>...\n\n" + txt, components=components)
+        raise GenericError("Only members with the **manage channels permission** "
+                           f"you can use this command/button with **24/7 mode active** on the channel <#{player.channel_id}>...\n\n" + txt, components=components)
 
     if inter.author.id == player.player_creator or inter.author.id in player.dj:
         return True
@@ -698,8 +698,8 @@ async def check_player_perm(inter, bot: BotCore, channel, guild_data: dict = Non
 
         txt, components = get_available_bots_info(bot.pool, player.guild_id, inter.author)
 
-        raise GenericError("Apenas DJ's ou membros com a permissão de **mover membros** "
-                           "podem usar este comando/botão com o **modo restrito ativo**...\n\n" + txt, components=components)
+        raise GenericError("Only DJs or members with the permission to **move members** "
+                           "can use this command/button with **restricted mode active**...\n\n" + txt, components=components)
 
     if not vc and inter.author.voice:
         player.dj.add(inter.author.id)
@@ -707,7 +707,7 @@ async def check_player_perm(inter, bot: BotCore, channel, guild_data: dict = Non
     elif not [m for m in vc.members if not m.bot and (vc.permissions_for(m).move_members or (m.id in player.dj) or m.id == player.player_creator)]:
         player.dj.add(inter.author.id)
         await channel.send(embed=disnake.Embed(
-            description=f"{inter.author.mention} foi adicionado à lista de DJ's por não haver um no canal <#{vc.id}>.",
+            description=f"{inter.author.mention} was added to the DJ list as there wasn't one on the channel <#{vc.id}>.",
             color=player.bot.get_color()), delete_after=10)
 
     return True
@@ -750,12 +750,12 @@ def can_connect(
     perms = channel.permissions_for(guild.me)
 
     if not perms.connect:
-        raise GenericError(f"**Não tenho permissão para conectar no canal {channel.mention}**")
+        raise GenericError(f"**I do not have permission to connect to the channel {channel.mention}**")
 
     if not isinstance(channel, disnake.StageChannel):
 
         if not perms.speak:
-            raise GenericError(f"**Não tenho permissão para falar no canal {channel.mention}**")
+            raise GenericError(f"**I am not allowed to speak on the channel {channel.mention}**")
 
         if not guild.voice_client and not check_channel_limit(guild.me, channel):
             raise GenericError(f"**O canal {channel.mention} está lotado!**")
@@ -770,7 +770,7 @@ def can_connect(
                 #                   f"Bot:** {b.user.mention}")
 
     if check_other_bots_in_vc and any(m for m in channel.members if m.bot and m.id != guild.me.id):
-        raise GenericError(f"**Há outro bot conectado no canal:** <#{channel.id}>")
+        raise GenericError(f"**There is another bot connected to the channel:** <#{channel.id}>")
 
 async def check_deafen(me: disnake.Member = None):
 

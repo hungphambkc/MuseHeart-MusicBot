@@ -7,7 +7,7 @@ from platform import python_version
 
 from utils.client import BotPool
 
-print(f"🐍 - Versão do python: {python_version()}")
+print(f"🐍 - Python version: {python_version()}")
 
 pool = BotPool()
 
