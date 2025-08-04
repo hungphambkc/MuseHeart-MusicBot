@@ -439,18 +439,18 @@ class Owner(commands.Cog):
                     embed=disnake.Embed(
                         description="**You will need to update the dependencies using the command "
                                     "below in the terminal/shell:**\n"
-                                    f"```sh\n{txt}{cmd}```\nou usar usar o comando: "
+                                    f"```sh\n{txt}{cmd}```\nor use the command: "
                                     f"```ansi\n[34;1m{prefix}update --force --pip[0m``` \n"
-                                    f"**Nota:** Dependendo da hospedagem (ou que não tenha 150mb de RAM livre "
-                                    f"e 0.5vCPU) você deve enviar o arquivo requirements.txt ao invés de "
-                                    f"usar uma das opções acima ou os botões de instalar dependências abaixo...",
+                                    f"**Note:** Depending on the hosting (or not having 150mb of free RAM) "
+                                    f"and 0.5vCPU) you must submit the requirements.txt file instead of "
+                                    f"use one of the options above or the install dependencies buttons below...",
                         color=self.bot.get_color(ctx.guild.me)
                     ),
                     components=[
                         disnake.ui.Button(label="Download requirements.txt", custom_id="updatecmd_requirements"),
                         disnake.ui.Button(label="Update dependencies",
                                           custom_id="updatecmd_installdeps_" + ("poetry" if use_poetry else "pip")),
-                        disnake.ui.Button(label="Atualizar dependências (force)",
+                        disnake.ui.Button(label="Update dependencies (force)",
                                           custom_id="updatecmd_installdeps_force_" + ("poetry" if use_poetry else "pip")),
                     ]
                 )
@@ -473,7 +473,7 @@ class Owner(commands.Cog):
 
             await inter.send(
                 embed=disnake.Embed(
-                    description="**Baixe o arquivo anexado e envie para sua hospedagem via commit etc.**",
+                    description="**Download the attached file and upload it to your hosting via commit etc.**",
                     color=self.bot.get_color(inter.guild.me)
                 ),
                 file=disnake.File("update_reqs.zip")
@@ -516,12 +516,12 @@ class Owner(commands.Cog):
 
     @commands.max_concurrency(1, commands.BucketType.guild)
     @commands.cooldown(1, 10, commands.BucketType.user)
-    @panel_command(aliases=["latest", "lastupdate"], description="Ver minhas atualizações mais recentes.", emoji="📈",
+    @panel_command(aliases=["latest", "lastupdate"], description="See my latest updates.", emoji="📈",
                    alt_name="Ultimas atualizações", hidden=False)
     async def updatelog(self, ctx: Union[CustomContext, disnake.MessageInteraction], amount: int = 10):
 
         if not os.path.isdir(os.environ["GIT_DIR"]):
-            raise GenericError("Não há repositorio iniciado no diretório do bot...\nNota: Use o comando update.")
+            raise GenericError("There is no repository started in the bot directory...\nNote: Use the update command.")
 
         if not self.bot.pool.remote_git_url:
             self.bot.pool.remote_git_url = self.bot.config["SOURCE_REPO"][:-4]
@@ -532,7 +532,7 @@ class Owner(commands.Cog):
 
         git_log += format_git_log(data)
 
-        txt = f"🔰 ** | [Atualizações recentes:]({self.bot.pool.remote_git_url}/commits/main)**\n\n" + self.format_log(
+        txt = f"🔰 ** | [Recent updates:]({self.bot.pool.remote_git_url}/commits/main)**\n\n" + self.format_log(
             git_log)
 
         if isinstance(ctx, CustomContext):
@@ -555,14 +555,14 @@ class Owner(commands.Cog):
             title="PAINEL DE CONTROLE.",
             color=self.bot.get_color(ctx.guild.me)
         )
-        embed.set_footer(text="Clique em uma tarefa que deseja executar.")
+        embed.set_footer(text="Click on a task you want to perform.")
         await ctx.send(embed=embed, view=PanelView(self.bot))
 
     @commands.has_guild_permissions(manage_guild=True)
     @commands.cooldown(1, 10, commands.BucketType.guild)
     @commands.command(
         aliases=["mudarprefixo", "prefix", "changeprefix"],
-        description="Alterar o prefixo do servidor",
+        description="Change the server prefix",
         usage="{prefix}{cmd} [prefixo]\nEx: {prefix}{cmd} >>"
     )
     async def setprefix(self, ctx: CustomContext, prefix: str):

@@ -47,7 +47,7 @@ class ServerManagerView(disnake.ui.View):
         ]
 
         select = disnake.ui.Select(
-            placeholder="Selecione um Bot:",
+            placeholder="Select a Bot:",
             options=opts
         )
 
@@ -65,7 +65,7 @@ class ServerManagerView(disnake.ui.View):
         ]
 
         select = disnake.ui.Select(
-            placeholder="Selecione um Servidor:",
+            placeholder="Select a Server:",
             options=opts,
             custom_id="server_selection"
         )
@@ -84,22 +84,22 @@ class ServerManagerView(disnake.ui.View):
             color=color,
             description=f"```{self.current_guild.name}```\n"
                         f"**ID:** `{self.current_guild.id}`\n"
-                        f"**Dono:** `{self.current_guild.owner} [{self.current_guild.owner.id}]`\n"
-                        f"**Criado em:** <t:{created_at}:f> - <t:{created_at}:R>\n"
-                        f"**Sou membro desde:** <t:{joined_at}:f> - <t:{joined_at}:R>\n"
-                        f"**Nível de verificação:** `{self.current_guild.verification_level or 'nenhuma'}`\n"
-                        f"**Membros:** `{self.member_count(self.current_guild)}`\n"
+                        f"**Owner:** `{self.current_guild.owner} [{self.current_guild.owner.id}]`\n"
+                        f"**Created on:** <t:{created_at}:f> - <t:{created_at}:R>\n"
+                        f"**I have been a member since:** <t:{joined_at}:f> - <t:{joined_at}:R>\n"
+                        f"**Verification level:** `{self.current_guild.verification_level or 'none'}`\n"
+                        f"**Members:** `{self.member_count(self.current_guild)}`\n"
                         f"**Bots:** `{self.bot_count(self.current_guild)}`"
         )
 
         if len(self.pages) > 1:
-            embed.title = f"Página atual: [{self.current_page+1}/{len(self.pages)}]"
+            embed.title = f"Current page: [{self.current_page+1}/{len(self.pages)}]"
 
         if self.current_guild.icon:
             embed.set_thumbnail(url=self.current_guild.icon.with_static_format("png").url)
 
         if interaction.guild.id == self.current_guild.id and interaction.bot.user.id == self.bot.user.id:
-            embed.description += f"\n```ansi\n[32;1mEstou no servidor atual!```"
+            embed.description += f"\n```ansi\n[32;1mI'm on the current server!```"
 
         embed.set_footer(text=f"{self.bot.user} [ID: {self.bot.user.id}]", icon_url=self.bot.user.display_avatar.url)
 
@@ -116,11 +116,11 @@ class ServerManagerView(disnake.ui.View):
 
         if has_server_select and len(self.pages) > 1:
 
-            back = disnake.ui.Button(label="Voltar", emoji="⬅️")
+            back = disnake.ui.Button(label="Back", emoji="⬅️")
             back.callback = self.previous_page
             self.add_item(back)
 
-            next = disnake.ui.Button(label="Avançar", emoji="➡️")
+            next = disnake.ui.Button(label="Next", emoji="➡️")
             next.callback = self.next_page
             self.add_item(next)
 
@@ -128,14 +128,14 @@ class ServerManagerView(disnake.ui.View):
         leave.callback = self.leave_guild
         self.add_item(leave)
 
-        stop = disnake.ui.Button(label="Parar", emoji="⏹️", style=disnake.ButtonStyle.blurple)
+        stop = disnake.ui.Button(label="Pause", emoji="⏹️", style=disnake.ButtonStyle.blurple)
         stop.callback = self.stop_interaction
         self.add_item(stop)
 
     async def interaction_check(self, interaction: disnake.MessageInteraction) -> bool:
 
         if interaction.author.id != self.inter.user.id:
-            await interaction.response.send_message("Você não pode interagir aqui...", ephemeral=True)
+            await interaction.response.send_message("You cannot interact here...", ephemeral=True)
             return False
 
         return True
@@ -162,7 +162,7 @@ class ServerManagerView(disnake.ui.View):
         if interaction.guild.id == self.current_guild.id and interaction.bot.user.id == self.bot.user.id:
             await interaction.response.edit_message(
                 embed=disnake.Embed(
-                    description="**Você me removeu do servidor atual.**",
+                    description="**You removed me from the current server.**",
                     color=self.bot.get_color(interaction.guild.me)
                 ),
                 view=None
@@ -208,7 +208,7 @@ class ServerManagerCog(commands.Cog):
     @commands.max_concurrency(1, commands.BucketType.default)
     @commands.is_owner()
     @commands.command(name="servers", aliases=["servermanager"], hidden=True,
-                      description="Gerenciar servidores em que o bot está.")
+                      description="Manage servers the bot is on.")
     async def servermanager(self, ctx: CustomContext):
 
         view = ServerManagerView(ctx)
