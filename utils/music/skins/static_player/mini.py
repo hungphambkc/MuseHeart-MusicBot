@@ -110,22 +110,22 @@ class MiniStaticSkin:
                     duration = time_format(t.duration) if not t.is_stream else '🔴 Live'
 
                     queue_txt += f"`┌ {n + 1})` [`{fix_characters(t.title, limit=34)}`]({t.uri})\n" \
-                                 f"`└ ⏲️ {duration}`" + (f" - `Repetições: {t.track_loops}`" if t.track_loops else "") + \
+                                 f"`└ ⏲️ {duration}`" + (f" - `Repetitions: {t.track_loops}`" if t.track_loops else "") + \
                                  f" **|** `✋` <@{t.requester}>\n"
 
                 else:
                     duration = f"<t:{int((current_time + datetime.timedelta(milliseconds=queue_duration)).timestamp())}:R>"
 
                     queue_txt += f"-# `┌ {n + 1})` [`{fix_characters(t.title, limit=34)}`]({t.uri})\n" \
-                                 f"-# `└ ⏲️` {duration}" + (f" - `Repetições: {t.track_loops}`" if t.track_loops else "") + \
+                                 f"-# `└ ⏲️` {duration}" + (f" - `Repetitions: {t.track_loops}`" if t.track_loops else "") + \
                                  f" **|** `✋` <@{t.requester}>\n"
 
-            embed_queue = disnake.Embed(title=f"Músicas na fila: {queue_size}",
+            embed_queue = disnake.Embed(title=f"Songs in queue: {queue_size}",
                                         color=player.bot.get_color(player.guild.me),
                                         description=f"\n{queue_txt}")
 
             if not has_stream and not player.loop and not player.keep_connected and not player.paused and not player.current.is_stream:
-                embed_queue.description += f"\n-# `[ ⌛ As músicas acabam` <t:{int((current_time + datetime.timedelta(milliseconds=queue_duration + player.current.duration)).timestamp())}:R> `⌛ ]`"
+                embed_queue.description += f"\n-# `[ ⌛ The songs end` <t:{int((current_time + datetime.timedelta(milliseconds=queue_duration + player.current.duration)).timestamp())}:R> `⌛ ]`"
 
         elif player.queue_autoplay:
 

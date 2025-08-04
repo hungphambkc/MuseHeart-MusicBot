@@ -74,12 +74,12 @@ class DefaultProgressbarStaticSkin:
               f"> -# 💠 **⠂Por:** {player.current.authors_md}"
 
         if not player.current.autoplay:
-            txt += f"\n> -# ✋ **⠂Pedido por:** <@{player.current.requester}>"
+            txt += f"\n> -# ✋ **⠂Requested by:** <@{player.current.requester}>"
         else:
             try:
-                mode = f" [`Recomendação`]({player.current.info['extra']['related']['uri']})"
+                mode = f" [`Recommendation`]({player.current.info['extra']['related']['uri']})"
             except:
-                mode = "`Recomendação`"
+                mode = "`Recommendation`"
             txt += f"\n> -# 👍 **⠂Adicionado via:** {mode}"
 
         try:

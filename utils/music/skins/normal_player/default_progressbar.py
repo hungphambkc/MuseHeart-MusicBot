@@ -76,22 +76,22 @@ class DefaultProgressbarSkin:
             txt += f"\n> -# ✋ **⠂** <@{player.current.requester}>"
         else:
             try:
-                mode = f" [`Recomendada`]({player.current.info['extra']['related']['uri']})"
+                mode = f" [`Recommended`]({player.current.info['extra']['related']['uri']})"
             except:
-                mode = "`Recomendada`"
+                mode = "`Recommended`"
             txt += f"\n> -# 👍 **⠂** {mode}"
 
         if player.current.track_loops:
-            txt += f"\n> -# 🔂 **⠂** `Repetições restantes: {player.current.track_loops}`"
+            txt += f"\n> -# 🔂 **⠂** `Remaining repetitions: {player.current.track_loops}`"
 
         if player.loop:
             if player.loop == 'current':
                 e = '🔂'
-                m = 'Música atual'
+                m = 'Current music'
             else:
                 e = '🔁'
-                m = 'Fila'
-            txt += f"\n> -# {e} **⠂** `Repetição: {m}`"
+                m = 'Queue'
+            txt += f"\n> -# {e} **⠂** `Repetition: {m}`"
 
         if player.current.album_name:
             txt += f"\n> -# 💽 **⠂** [`{fix_characters(player.current.album_name, limit=36)}`]({player.current.album_url})"
@@ -103,7 +103,7 @@ class DefaultProgressbarSkin:
             txt += f"\n> -# 🎶 **⠂** `{qlenght} música{'s'[:qlenght^1]} na fila`"
 
         if player.keep_connected:
-            txt += "\n> -# ♾️ **⠂** `Modo 24/7 ativado`"
+            txt += "\n> -# ♾️ **⠂** `24/7 mode activated`"
 
         txt += f"{vc_txt}\n"
 

@@ -501,7 +501,7 @@ class Music(commands.Cog):
     @can_send_message_check()
     @commands.bot_has_guild_permissions(send_messages=True)
     @check_voice()
-    @pool_command(name="search", description="Pesquisar por músicas e escolher uma entre os resultados para tocar.",
+    @pool_command(name="search", description="Search for songs and choose one from the results to play.",
                   aliases=["sc"], check_player=False, cooldown=play_cd, max_concurrency=play_mc,
                   usage="{prefix}{cmd} [nome]\nEx: {prefix}{cmd} sekai - burn me down")
     async def search_legacy(self, ctx: CustomContext, *, query):
@@ -533,7 +533,7 @@ class Music(commands.Cog):
                     disnake.OptionChoice(disnake.Localized("Yes", data={disnake.Locale.pt_BR: "Sim"}), "yes"),
                 ]
             ),
-            server: str = commands.Param(name="server", desc="Usar um servidor de música específico na busca.",
+            server: str = commands.Param(name="server", desc="Use a specific music server in the search.",
                                          default=None),
             manual_bot_choice: str = commands.Param(
                 name="selecionar_bot",
@@ -573,7 +573,7 @@ class Music(commands.Cog):
             if count < 1:
                 return tracks
             if len(player.queue) >= count and not (await bot.is_owner(user)):
-                raise GenericError(f"**A fila está cheia ({self.bot.config['QUEUE_MAX_ENTRIES']} músicas).**")
+                raise GenericError(f"**The queue is full ({self.bot.config['QUEUE_MAX_ENTRIES']} songs).**")
 
         if tracks:
 
@@ -589,19 +589,19 @@ class Music(commands.Cog):
     @can_send_message_check()
     @check_voice()
     @commands.slash_command(
-        description=f"{desc_prefix}Tocar música em um canal de voz.",
+        description=f"{desc_prefix}Play music in a voice channel.",
         extras={"check_player": False}, cooldown=play_cd, max_concurrency=play_mc
     )
     @commands.contexts(guild=True)
     async def play(
             self,
             inter: Union[disnake.AppCmdInter, CustomContext],
-            query: str = commands.Param(name="search", desc="Nome ou link da música."), *,
+            query: str = commands.Param(name="search", desc="Song name or link."), *,
             position: int = commands.Param(name="position", description="Colocar a música em uma posição específica",
                                            default=0),
             force_play: str = commands.Param(
                 name="tocar_agora",
-                description="Tocar a música imediatamente (ao invés de adicionar na fila).",
+                description="Play the song immediately (instead of adding it to the queue).",
                 default="no",
                 choices=[
                     disnake.OptionChoice(disnake.Localized("Yes", data={disnake.Locale.pt_BR: "Sim"}), "yes"),
@@ -733,7 +733,7 @@ class Music(commands.Cog):
 
                     newmsg = await func(
                         embed=disnake.Embed(
-                            description=f"**Escolha qual bot você deseja usar no canal {author.voice.channel.mention}**",
+                            description=f"**Choose which bot you want to use on the channel {author.voice.channel.mention}**",
                             color=self.bot.get_color(guild.me)), view=v
                     )
                     await v.wait()
@@ -796,7 +796,7 @@ class Music(commands.Cog):
         await check_player_perm(inter=inter, bot=bot, channel=channel, guild_data=guild_data)
 
         if not guild.voice_client and not check_channel_limit(guild.me, author.voice.channel):
-            raise GenericError(f"**O canal {author.voice.channel.mention} está lotado!**")
+            raise GenericError(f"**The channel {author.voice.channel.mention} it's crowded!**")
 
         await self.check_player_queue(inter.author, bot, guild.id)
 
@@ -872,10 +872,10 @@ class Music(commands.Cog):
                     attachment = inter.message.attachments[0]
 
                     if attachment.size > 18000000:
-                        raise GenericError("**O arquivo que você enviou deve ter o tamanho igual ou inferior a 18mb.**")
+                        raise GenericError("**The file you uploaded must be 18mb or smaller.**")
 
                     if attachment.content_type not in self.audio_formats:
-                        raise GenericError("**O arquivo que você enviou não é um arquivo de música válido...**")
+                        raise GenericError("**The file you uploaded is not a valid music file...**")
 
                     query = attachment.url
 
@@ -943,9 +943,9 @@ class Music(commands.Cog):
                 guild_data = await bot.get_data(inter.guild_id, db_name=DBModel.guilds)
 
             if guild_data["player_controller"]["fav_links"]:
-                txt += "### `[📌] Favoritos do servidor [📌]`\n" \
-                        "`Usar favorito do servidor (adicionados por staffs do servidor).`\n"
-                opts.append(disnake.SelectOption(label="Usar favorito do servidor", value=">> [📌 Favoritos do servidor 📌] <<", emoji="📌"))
+                txt += "### `[📌] Server Favorites [📌]`\n" \
+                        "`Use server favorite (added by server staff).`\n"
+                opts.append(disnake.SelectOption(label="Use server favorite", value=">> [📌 Server Favorites 📌] <<", emoji="📌"))
 
             if not opts:
                 raise EmptyFavIntegration()
