@@ -25,7 +25,7 @@ nodriver==0.32
 undetected-chromedriver==3.5.5
 ruamel.yaml
 nest_asyncio
-setuptools>=70.0.0<81; python_version>='3.12'
+setuptools>=70.0.0,<81; python_version>='3.12'
 curl_cffi
 audioop-lts; python_version>='3.13'
 uvloop; sys_platform != 'win32'

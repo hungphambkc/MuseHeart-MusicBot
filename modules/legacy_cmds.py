@@ -437,8 +437,8 @@ class Owner(commands.Cog):
 
                 await ctx.send(
                     embed=disnake.Embed(
-                        description="**Será necessário atualizar as dependências usando o comando "
-                                    "abaixo no terminal/shell:**\n"
+                        description="**You will need to update the dependencies using the command "
+                                    "below in the terminal/shell:**\n"
                                     f"```sh\n{txt}{cmd}```\nou usar usar o comando: "
                                     f"```ansi\n[34;1m{prefix}update --force --pip[0m``` \n"
                                     f"**Nota:** Dependendo da hospedagem (ou que não tenha 150mb de RAM livre "
@@ -448,7 +448,7 @@ class Owner(commands.Cog):
                     ),
                     components=[
                         disnake.ui.Button(label="Download requirements.txt", custom_id="updatecmd_requirements"),
-                        disnake.ui.Button(label="Atualizar dependências",
+                        disnake.ui.Button(label="Update dependencies",
                                           custom_id="updatecmd_installdeps_" + ("poetry" if use_poetry else "pip")),
                         disnake.ui.Button(label="Atualizar dependências (force)",
                                           custom_id="updatecmd_installdeps_force_" + ("poetry" if use_poetry else "pip")),
