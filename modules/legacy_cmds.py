@@ -403,7 +403,7 @@ class Owner(commands.Cog):
         if args.pip:
 
             embed = disnake.Embed(
-                description="**Instalando as dependências.\nPor favor aguarde...**",
+                description="**Installing dependencies.\nPlease wait...**",
                 color=self.bot.get_color(ctx.guild.me)
             )
 
@@ -411,7 +411,7 @@ class Owner(commands.Cog):
 
             await run_command(cmd)
 
-            embed.description = "**As dependências foram instaladas com sucesso!**"
+            embed.description = "**Dependencies installed successfully!**"
 
             await msg.edit(embed=embed)
 
