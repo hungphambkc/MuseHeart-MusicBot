@@ -182,9 +182,9 @@ class HelpCog(commands.Cog, name="Help"):
             txt += f"🔢 **⠂Subcommands:** ```{subs}``` Use the command: `[ {ctx.prefix}help {cmd} subcomando ]` para ver mais detalhes do subcomando.\n\n"
 
         if usage_cmd:
-            txt += f"📘 **⠂Como Usar:** ```\n{usage_cmd}```\n" \
-                   f"⚠️ **⠂Notas sobre o uso dos argumentos no comando:** ```\n" \
-                   f"[] = Obrigatório | <> = Opcional```\n"
+            txt += f"📘 **⠂How to Use:** ```\n{usage_cmd}```\n" \
+                   f"⚠️ **⠂Notes on using arguments in the command:** ```\n" \
+                   f"[] = Mandatory | <> = Optional```\n"
 
         flags = cmd.extras.get("flags")
 

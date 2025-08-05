@@ -27,7 +27,7 @@ class ErrorHandler(commands.Cog):
         if not self.bot.config["AUTO_ERROR_REPORT_WEBHOOK"] and self.bot.config["ERROR_REPORT_WEBHOOK"]:
             self.components.append(
                 disnake.ui.Button(
-                    label="Reporte esse erro",
+                    label="Report this error",
                     custom_id="report_error",
                     emoji="⚠️"
                 )
@@ -36,7 +36,7 @@ class ErrorHandler(commands.Cog):
         if self.bot.config["SUPPORT_SERVER"]:
             self.components.append(
                 disnake.ui.Button(
-                    label="Servidor de suporte",
+                    label="Support server",
                     url=self.bot.config["SUPPORT_SERVER"],
                     emoji="💻"
                 )
@@ -113,13 +113,13 @@ class ErrorHandler(commands.Cog):
 
             kwargs["embed"] = disnake.Embed(
                 color=color,
-                title = "Ocorreu um erro no comando:",
+                title = "An error occurred in the command:",
                 description=f"```py\n{repr(error)[:2030].replace(self.bot.http.token, 'mytoken')}```"
             )
 
             if self.bot.config["AUTO_ERROR_REPORT_WEBHOOK"]:
                 send_webhook = True
-                kwargs["embed"].description += " `Meu desenvolvedor será notificado sobre o problema.`"
+                kwargs["embed"].description += " `My developer will be notified about the issue.`"
 
         else:
 
@@ -207,7 +207,7 @@ class ErrorHandler(commands.Cog):
             return
 
         if isinstance(error, commands.NotOwner):
-            print(f"{ctx.author} [{ctx.author.id}] não é dono do bot para usar o comando: {ctx.command.name}")
+            print(f"{ctx.author} [{ctx.author.id}] do not own the bot to use the command: {ctx.command.name}")
             return
 
         try:
@@ -251,15 +251,15 @@ class ErrorHandler(commands.Cog):
             if ctx.channel.permissions_for(ctx.guild.me).embed_links:
                 kwargs["embed"] = disnake.Embed(
                     color=disnake.Colour.red(),
-                    title="Ocorreu um erro no comando:",
+                    title="An error occurred in the command:",
                     description=f"```py\n{repr(error)[:2030].replace(self.bot.http.token, 'mytoken')}```"
                 )
                 if self.bot.config["AUTO_ERROR_REPORT_WEBHOOK"]:
                     send_webhook = True
-                    kwargs["embed"].description += " `Meu desenvolvedor será notificado sobre o problema.`"
+                    kwargs["embed"].description += " `My developer will be notified about the issue.`"
 
             else:
-                kwargs["content"] += "\n**Ocorreu um erro no comando:**\n" \
+                kwargs["content"] += "\n**An error occurred in the command:**\n" \
                                      f"```py\n{repr(error)[:2030].replace(self.bot.http.token, 'mytoken')}```"
 
         else:
@@ -328,7 +328,7 @@ class ErrorHandler(commands.Cog):
             return
 
         if str(inter.author.id) not in inter.message.content:
-            await inter.send(f"Apenas o usuário {inter.message.content} pode usar esse botão!", ephemeral=True)
+            await inter.send(f"Only the user {inter.message.content} you can use this button!", ephemeral=True)
             return
 
         await inter.response.send_modal(
@@ -344,7 +344,7 @@ class ErrorHandler(commands.Cog):
                 ),
                 disnake.ui.TextInput(
                     style=disnake.TextInputStyle.short,
-                    label="Link de imagem/print do erro (Opcional)",
+                    label="Error image/print link (Optional)",
                     custom_id="image_url",
                     max_length=300,
                     required=False
@@ -361,7 +361,7 @@ class ErrorHandler(commands.Cog):
         if not inter.message.embeds:
             await inter.response.edit_message(
                 embed=disnake.Embed(
-                    title="A embed da mensagem foi removida!",
+                    title="The message embed has been removed!",
                     description=inter.text_values["error_details"]
                 ), view=None
             )
@@ -372,7 +372,7 @@ class ErrorHandler(commands.Cog):
         if image_url and not URL_REG.match(image_url):
             await inter.send(
                 embed=disnake.Embed(
-                    title="Link de imagem inválida!",
+                    title="Invalid image link!",
                     description=inter.text_values["error_details"]
                 ), ephemeral=True
             )
@@ -388,7 +388,7 @@ class ErrorHandler(commands.Cog):
 
         await inter.response.edit_message(
             embed=disnake.Embed(
-                description="**Erro reportado com sucesso!**",
+                description="**Error reported successfully!**",
                 color=self.bot.get_color(inter.guild.me)
             ), view=None
         )
@@ -415,7 +415,7 @@ class ErrorHandler(commands.Cog):
     def build_report_embed(self, ctx):
 
         embed = disnake.Embed(
-            title="Ocorreu um erro em um servidor:",
+            title="An error occurred on a server:",
             timestamp=disnake.utils.utcnow()
         )
 
@@ -447,7 +447,7 @@ class ErrorHandler(commands.Cog):
             if vcbot := ctx.guild.me.voice:
                 if vc and vcbot.channel != vc.channel:
                     embed.add_field(
-                        name="Canal de voz (bot):", inline=False,
+                        name="Voice channel (bot):", inline=False,
                         value=f"{vc.channel.name}" +
                               (f" ({len(vc.channel.voice_states)}/{vc.channel.user_limit})"
                                if vc.channel.user_limit else "") + f"\nID: {vc.channel.id}```"
@@ -462,7 +462,7 @@ class ErrorHandler(commands.Cog):
             except AttributeError:
                 guild_id = ctx.guild.id
             embed.add_field(
-                name="Servidor [ID]:", inline=False,
+                name="Server [ID]:", inline=False,
                 value=f"```\n{guild_id}```"
             )
 
@@ -485,10 +485,10 @@ class ErrorHandler(commands.Cog):
 
                 try:
                     message = ctx.message
-                    type_ ="Comando"
+                    type_ ="Command"
                 except AttributeError:
                     message = ctx
-                    type_ = "Mensagem"
+                    type_ = "Message"
 
                 embed.description = f"**{type_}:**```\n" \
                                     f"{message.content}" \
