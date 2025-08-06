@@ -570,7 +570,7 @@ class Owner(commands.Cog):
         prefix = prefix.strip()
 
         if not prefix or len(prefix) > 5:
-            raise GenericError("**O prefixo não pode conter espaços ou ter acima de 5 caracteres.**")
+            raise GenericError("**The prefix cannot contain spaces or be longer than 5 characters.**")
 
         guild_data = await self.bot.get_global_data(ctx.guild.id, db_name=DBModel.guilds)
 
@@ -581,8 +581,8 @@ class Owner(commands.Cog):
         prefix = disnake.utils.escape_markdown(prefix)
 
         embed = disnake.Embed(
-            description=f"**O meu prefixo no servidor agora é:** `{prefix}`\n"
-                        f"**Caso queira restaurar o prefixo padrão use o comando:** `{prefix}{self.resetprefix.name}`",
+            description=f"**My prefix on the server is now:** `{prefix}`\n"
+                        f"**If you want to restore the default prefix, use the command:** `{prefix}{self.resetprefix.name}`",
             color=self.bot.get_color(ctx.guild.me)
         )
 
@@ -591,14 +591,14 @@ class Owner(commands.Cog):
     @commands.has_guild_permissions(manage_guild=True)
     @commands.cooldown(1, 10, commands.BucketType.guild)
     @commands.command(
-        description="Resetar o prefixo do servidor (Usar o prefixo padrão do bot)"
+        description="Reset Server Prefix (Use Bot's Default Prefix)"
     )
     async def resetprefix(self, ctx: CustomContext):
 
         guild_data = await self.bot.get_global_data(ctx.guild.id, db_name=DBModel.guilds)
 
         if not guild_data["prefix"]:
-            raise GenericError("**Nao há prefixo configurado no servidor.**")
+            raise GenericError("**There is no prefix configured on the server.**")
 
         guild_data["prefix"] = ""
         self.bot.pool.guild_prefix_cache[ctx.guild.id] = ""
@@ -606,8 +606,8 @@ class Owner(commands.Cog):
         await self.bot.update_global_data(ctx.guild.id, guild_data, db_name=DBModel.guilds)
 
         embed = disnake.Embed(
-            description=f"**O prefixo do servidor foi resetado com sucesso.\n"
-                        f"O prefixo padrão agora é:** `{disnake.utils.escape_markdown(self.bot.default_prefix)}`",
+            description=f"**Server prefix has been reset successfully.\n"
+                        f"The default prefix is now:** `{disnake.utils.escape_markdown(self.bot.default_prefix)}`",
             color=self.bot.get_color(ctx.guild.me)
         )
 
@@ -616,16 +616,16 @@ class Owner(commands.Cog):
     @commands.cooldown(1, 10, commands.BucketType.guild)
     @commands.command(
         aliases=["uprefix", "spu", "setmyprefix", "spm", "setcustomprefix", "scp", "customprefix", "myprefix"],
-        description="Alterar seu prefixo de usuário (prefixo que irei responder a você independente "
-                    "do prefixo configurado no servidor).",
-        usage="{prefix}{cmd} [prefixo]\nEx: {prefix}{cmd} >>"
+        description="Change your user prefix (prefix I will respond to you regardless "
+                    "of the prefix configured on the server).",
+        usage="{prefix}{cmd} [prefix]\nEx: {prefix}{cmd} >>"
     )
     async def setuserprefix(self, ctx: CustomContext, prefix: str):
 
         prefix = prefix.strip()
 
         if not prefix or len(prefix) > 5:
-            raise GenericError("**O prefixo não pode conter espaços ou ter acima de 5 caracteres.**")
+            raise GenericError("**The prefix cannot contain spaces or be longer than 5 characters.**")
 
         user_data = await self.bot.get_global_data(ctx.author.id, db_name=DBModel.users)
 
@@ -636,8 +636,8 @@ class Owner(commands.Cog):
         prefix = disnake.utils.escape_markdown(prefix)
 
         embed = disnake.Embed(
-            description=f"**O seu prefixo de usuário agora é:** `{prefix}`\n"
-                        f"**Caso queira remover seu prefixo de usuário use o comando:** `{prefix}{self.resetuserprefix.name}`",
+            description=f"**Your user prefix is now:** `{prefix}`\n"
+                        f"**If you want to remove your user prefix, use the command:** `{prefix}{self.resetuserprefix.name}`",
             color=self.bot.get_color(ctx.guild.me)
         )
 

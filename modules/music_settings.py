@@ -42,7 +42,7 @@ def check_channel_perm(channel: Union[disnake.StageChannel, disnake.VoiceChannel
 
     if missing_perms:
         raise GenericError(
-            f"**{channel.guild.me.mention} não possui as seguintes permissões necessárias no canal {channel.mention}** ```ansi\n" +
+            f"**{channel.guild.me.mention} You do not have the following required permissions on the channel {channel.mention}** ```ansi\n" +
             "\n".join(f"[0;33m{perms_translations.get(p, p)}[0m" for p in missing_perms) + "```")
 
 
@@ -90,7 +90,7 @@ class SkinSelector(disnake.ui.View):
         self.clear_items()
 
         if not self.global_mode:
-            self.embed.title = "Seletor de skin (Aplicar no bot selecionado)"
+            self.embed.title = "Skin Selector (Apply to selected bot)"
 
             for s in self.select_opts:
                 s.default = self.skin_selected == s.value
@@ -102,7 +102,7 @@ class SkinSelector(disnake.ui.View):
             static_select_opts = self.static_select_opts
 
         else:
-            self.embed.title = "Seletor de skin (Aplicar em todos os bots do servidor)"
+            self.embed.title = "Skin Selector (Apply to all bots on the server)"
 
             for s in self.global_select_opts:
                 s.default = self.skin_selected == s.value
@@ -121,15 +121,15 @@ class SkinSelector(disnake.ui.View):
         static_select_opts.callback = self.static_skin_callback
         self.add_item(static_select_opts)
 
-        global_mode = disnake.ui.Button(label=("Desativar" if self.global_mode else "Ativar") + " modo Global ", emoji="🌐")
+        global_mode = disnake.ui.Button(label=("Disable" if self.global_mode else "Activate") + " Global mode ", emoji="🌐")
         global_mode.callback = self.mode_callback
         self.add_item(global_mode)
 
-        confirm_button = disnake.ui.Button(label="Salvar", emoji="💾")
+        confirm_button = disnake.ui.Button(label="Save", emoji="💾")
         confirm_button.callback = self.confirm_callback
         self.add_item(confirm_button)
 
-        cancel_button = disnake.ui.Button(label="Cancelar", emoji="❌")
+        cancel_button = disnake.ui.Button(label="Cancel", emoji="❌")
         cancel_button.callback = self.stop_callback
         self.add_item(cancel_button)
 
@@ -184,13 +184,13 @@ class PlayerSettings(disnake.ui.View):
         self.clear_items()
 
         player_volume_select = disnake.ui.Select(
-            placeholder="Selecione um volume padrão.",
+            placeholder="Select a default volume.",
             options=[
-                        disnake.SelectOption(label=f"Volume padrão: {i}", default=i == self.default_player_volume,
+                        disnake.SelectOption(label=f"Standard volume: {i}", default=i == self.default_player_volume,
                                              value=str(i)) for i in range(5, 101, 5)
                     ] + [
-                disnake.SelectOption(label=f"Volume padrão: {i}", default=i == self.default_player_volume,
-                                     description="Nota: Acima de 100% o audio pode ficar ruim.",
+                disnake.SelectOption(label=f"Standard volume: {i}", default=i == self.default_player_volume,
+                                     description="Note: Above 100% the audio may be bad.",
                                      value=str(i)) for i in range(110, 151, 10)
             ]
         )

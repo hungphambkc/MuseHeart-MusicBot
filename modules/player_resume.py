@@ -482,7 +482,7 @@ class PlayerSession(commands.Cog):
                             message_without_thread = msg
 
                     except Exception as e:
-                        print(f"{self.bot.user} - Falha ao obter mensagem: {repr(e)}\n"
+                        print(f"{self.bot.user} - Failed to get message: {repr(e)}\n"
                               f"channel_id: {text_channel.id} | message_id {data['message']}")
 
                 if not voice_channel or not voice_channel.permissions_for(guild.me).connect:
@@ -496,7 +496,7 @@ class PlayerSession(commands.Cog):
                 if not voice_channel:
                     print(f"{self.bot.user} - Player Ignorado: {guild.name} [{guild.id}]\nO canal de voz não existe...")
                     try:
-                        msg = "Player finalizado pois o canal de voz não existe ou foi deletado."
+                        msg = "Player terminated because the voice channel does not exist or has been deleted."
                         if not data["skin_static"]:
                             await text_channel.send(embed=disnake.Embed(description=msg, color=self.bot.get_color(guild.me)))
                         else:
@@ -504,7 +504,7 @@ class PlayerSession(commands.Cog):
                                 cog = self.bot.get_cog("Music")
                                 if cog:
                                     await cog.reset_controller_db(guild.id, guild_data)
-                                print(f"{self.bot.user} - Controller resetado por config de canal inválido.\n"
+                                print(f"{self.bot.user} - Controller reset due to invalid channel config.\n"
                                       f"Server: {guild.name} [{guild.id}] | channel: {text_channel.name} [{text_channel.id}] {type(text_channel)}")
                                 return
                             await send_idle_embed(text_channel, bot=self.bot, text=msg)
@@ -517,9 +517,9 @@ class PlayerSession(commands.Cog):
                 try:
                     can_connect(voice_channel, guild=guild, bot=self.bot)
                 except Exception as e:
-                    print(f"{self.bot.user} - Player Ignorado: {guild.name} [{guild.id}]\n{repr(e)}")
+                    print(f"{self.bot.user} - Player Ignored: {guild.name} [{guild.id}]\n{repr(e)}")
                     try:
-                        msg = f"O player foi finalizado devido a falta da permissão de conectar no canal {voice_channel.mention}."
+                        msg = f"The player was terminated due to lack of permission to connect to the channel {voice_channel.mention}."
                         if not data["skin_static"]:
                             await text_channel.send(embed=disnake.Embed(description=msg, color=self.bot.get_color(guild.me)))
                         else:
@@ -565,7 +565,7 @@ class PlayerSession(commands.Cog):
                         session_resuming=True,
                     )
                 except Exception:
-                    print(f"{self.bot.user} - Falha ao criar player: {guild.name} [{guild.id}]\n{traceback.format_exc()}")
+                    print(f"{self.bot.user} - Failed to create player: {guild.name} [{guild.id}]\n{traceback.format_exc()}")
                     if not data.get("autoplay") and (disnake.utils.utcnow() - data.get("time", disnake.utils.utcnow())).total_seconds() > 172800:
                         await self.delete_data(guild.id)
                     return
@@ -630,7 +630,7 @@ class PlayerSession(commands.Cog):
 
             if started:
                 player.set_command_log(
-                    text="Os dados do player foram restaurados com sucessos!",
+                    text="Player data has been successfully restored!",
                     emoji="🔰"
                 )
                 player.update = True
@@ -645,7 +645,7 @@ class PlayerSession(commands.Cog):
                         player.played.clear()
 
                 player.set_command_log(
-                    text="O player foi restaurado com sucesso!",
+                    text="The player has been successfully restored!",
                     emoji="🔰"
                 )
 
@@ -679,13 +679,13 @@ class PlayerSession(commands.Cog):
 
                     player._session_resuming = False
                 except Exception:
-                    print(f"{self.bot.user} - Falha na reprodução da música ao retomar player do servidor {guild.name} [{guild.id}]:\n{traceback.format_exc()}")
+                    print(f"{self.bot.user} - Music playback failed when resuming player from server {guild.name} [{guild.id}]:\n{traceback.format_exc()}")
                     return
 
-            print(f"▶️ - {self.bot.user} - Player Retomado: {guild.name} [{guild.id}] - Server: {player.node.identifier}")
+            print(f"▶️ - {self.bot.user} - Player Resumed: {guild.name} [{guild.id}] - Server: {player.node.identifier}")
 
         except Exception:
-            print(f"{self.bot.user} - Falha Crítica ao retomar players:\n{traceback.format_exc()}")
+            print(f"{self.bot.user} - Critical failure when resuming players:\n{traceback.format_exc()}")
 
     async def get_player_sessions_mongo(self):
 
