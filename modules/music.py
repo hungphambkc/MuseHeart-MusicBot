@@ -478,7 +478,7 @@ class Music(commands.Cog):
     @commands.bot_has_guild_permissions(send_messages=True)
     @check_voice()
     @commands.max_concurrency(1, commands.BucketType.member)
-    @pool_command(name="play", description="Tocar música em um canal de voz.", aliases=["p"], check_player=False,
+    @pool_command(name="play", description="Play music in a voice channel.", aliases=["p"], check_player=False,
                   cooldown=play_cd, max_concurrency=play_mc, extras={"flags": stage_flags},
                   usage="{prefix}{cmd} [nome|link]\nEx: {prefix}{cmd} sekai - burn me down")
     async def play_legacy(self, ctx: CustomContext, *, flags: str = ""):
@@ -513,7 +513,7 @@ class Music(commands.Cog):
     @check_voice()
     @commands.slash_command(
         name="play_music_file",
-        description=f"{desc_prefix}Tocar arquivo de música em um canal de voz.",
+        description=f"{desc_prefix}Play music file in a voice channel.",
         extras={"check_player": False}, cooldown=play_cd, max_concurrency=play_mc
     )
     @commands.contexts(guild=True)
@@ -521,13 +521,13 @@ class Music(commands.Cog):
             self,
             inter: Union[disnake.AppCmdInter, CustomContext],
             file: disnake.Attachment = commands.Param(
-                name="arquivo", description="arquivo de audio para tocar ou adicionar na fila"
+                name="arquivo", description="audio file to play or add to queue"
             ),
             position: int = commands.Param(name="position", description="Place the music in a specific position",
                                            default=0),
             force_play: str = commands.Param(
                 name="tocar_agora",
-                description="Tocar a música imediatamente (ao invés de adicionar na fila).",
+                description="Play the song immediately (instead of adding it to the queue).",
                 default="no",
                 choices=[
                     disnake.OptionChoice(disnake.Localized("Yes", data={disnake.Locale.pt_BR: "Sim"}), "yes"),
@@ -597,7 +597,7 @@ class Music(commands.Cog):
             self,
             inter: Union[disnake.AppCmdInter, CustomContext],
             query: str = commands.Param(name="search", desc="Song name or link."), *,
-            position: int = commands.Param(name="position", description="Colocar a música em uma posição específica",
+            position: int = commands.Param(name="position", description="Place the music in a specific position",
                                            default=0),
             force_play: str = commands.Param(
                 name="tocar_agora",
@@ -608,23 +608,23 @@ class Music(commands.Cog):
                 ]
             ),
             mix: str = commands.Param(
-                name="recomendadas",
-                description="Tocar músicas recomendadas com base no nome do artista - música informado",
+                name="recommended",
+                description="Play recommended songs based on artist name - music provided",
                 default=False,
                 choices=[
                     disnake.OptionChoice(disnake.Localized("Yes", data={disnake.Locale.pt_BR: "Sim"}), "yes"),
                 ]
             ),
             manual_selection: bool = commands.Param(name="selecionar_manualmente",
-                                                    description="Escolher uma música manualmente entre os resultados encontrados",
+                                                    description="Manually choose a song from the results found",
                                                     default=False),
-            options: str = commands.Param(name="opções", description="Opções para processar playlist",
+            options: str = commands.Param(name="opções", description="Options for processing playlist",
                                           choices=playlist_opts, default=False),
-            server: str = commands.Param(name="server", desc="Usar um servidor de música específico na busca.",
+            server: str = commands.Param(name="server", desc="Use a specific music server in search.",
                                          default=None),
             manual_bot_choice: str = commands.Param(
                 name="selecionar_bot",
-                description="Selecionar um bot disponível manualmente.",
+                description="Select an available bot manually.",
                 default="no",
                 choices=[
                     disnake.OptionChoice(disnake.Localized("Yes", data={disnake.Locale.pt_BR: "Sim"}), "yes"),
@@ -757,7 +757,7 @@ class Music(commands.Cog):
                             func = msg.edit
                         except AttributeError:
                             func = inter.edit_original_message
-                        await func(embed=disnake.Embed(description="### Operação cancelada.",
+                        await func(embed=disnake.Embed(description="### Operation canceled.",
                                                        color=self.bot.get_color(guild.me)), view=None)
                         return
 
@@ -766,7 +766,7 @@ class Music(commands.Cog):
                             func = msg.edit
                         except AttributeError:
                             func = inter.edit_original_message
-                        await func(embed=disnake.Embed(description="### Você não está conectado em um canal de voz...",
+                        await func(embed=disnake.Embed(description="### You are not connected to a voice channel...",
                                                        color=self.bot.get_color(guild.me)), view=None)
                         return
 
@@ -914,7 +914,7 @@ class Music(commands.Cog):
 
             if user_data["integration_links"]:
                 opts.append(disnake.SelectOption(label="Usar integração", value=">> [💠 Integrações 💠] <<", emoji="💠"))
-                txt += f"`Tocar playlist pública de um canal do youtube (ou de um perfil de usuário de alguma plataforma de música) da sua lista de integrações.`\n"
+                txt += f"`Play a public playlist from a YouTube channel (or a user profile on a music platform) from your integrations list.`\n"
 
             else:
                 txt += f"`Você não possui integração adicionada... " \
